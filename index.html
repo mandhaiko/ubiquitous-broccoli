@@ -32,6 +32,108 @@
             background-attachment: fixed;
         }
 
+        /* YES page with photo background */
+        body.yes-page {
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Photo background */
+        .photo-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('your-photo.jpg'); /* REPLACE THIS WITH YOUR PHOTO FILENAME */
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            z-index: 1;
+        }
+
+        /* Dark overlay for photo */
+        .photo-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.4);
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        /* YES content styling */
+        .yes-content {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            background: rgba(255, 255, 255, 0.85);
+            padding: 3rem;
+            border-radius: 30px;
+            box-shadow: 0 20px 60px rgba(255, 20, 147, 0.3);
+            max-width: 800px;
+            width: 90%;
+            backdrop-filter: blur(10px);
+            border: 3px solid white;
+            animation: fadeIn 1s;
+        }
+
+        .yes-content p {
+            font-size: 1.8rem;
+            color: #ff1493;
+            margin: 1.5rem 0;
+            line-height: 1.4;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.5);
+        }
+
+        .yes-content .heart {
+            font-size: 5rem;
+            animation: heartbeat 1.2s ease-in-out infinite;
+        }
+
+        /* Giant hearts container */
+        .giant-hearts {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 5;
+            overflow: hidden;
+        }
+
+        .giant-heart {
+            position: absolute;
+            color: rgba(255, 20, 147, 0.6);
+            font-size: 150px;
+            animation: floatUp 4s ease-out forwards;
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
+            z-index: 6;
+        }
+
+        @keyframes floatUp {
+            0% {
+                transform: translateY(100vh) scale(0.5) rotate(0deg);
+                opacity: 0;
+            }
+            20% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-200px) scale(1.5) rotate(20deg);
+                opacity: 0;
+            }
+        }
+
         /* Dark page with Elmo and fire at bottom */
         body.dark-page {
             background: #000000;
@@ -41,16 +143,16 @@
             position: relative;
         }
 
-        /* Elmo GIF positioned at bottom */
+        /* Elmo GIF positioned at bottom - FULLY VISIBLE */
         .elmo-fire-bottom {
             position: fixed;
             bottom: 0;
             left: 0;
             width: 100%;
-            height: 300px;
+            height: 100%; /* Changed to full height */
             background-image: url('burn-elmo.gif');
             background-size: cover;
-            background-position: center bottom;
+            background-position: center;
             background-repeat: no-repeat;
             z-index: 1;
             pointer-events: none;
@@ -90,33 +192,25 @@
             mix-blend-mode: screen;
         }
 
-        /* Dark overlay - made lighter so text stands out */
+        /* REMOVED the dark overlay - now fully transparent behind text */
         body.dark-page::before {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.4);
-            z-index: 4;
-            pointer-events: none;
+            display: none; /* Removes the black overlay */
         }
 
-        /* Dark content styling - moved higher up */
+        /* Dark content styling - NOW FULLY TRANSPARENT except button */
         .dark-content {
             position: relative;
             z-index: 5;
             text-align: center;
-            background: rgba(0, 0, 0, 0.5);
+            background: transparent; /* Changed from rgba to transparent */
             padding: 2rem;
             border-radius: 20px;
             border: 2px solid #ff6b00;
             box-shadow: 0 0 50px rgba(255, 107, 0, 0.5);
-            margin-top: -150px; /* Pulls content higher up */
+            margin-top: -150px;
             max-width: 800px;
             width: 90%;
-            backdrop-filter: blur(5px);
+            backdrop-filter: none; /* Removed blur */
         }
 
         .how-dare-you {
@@ -152,7 +246,7 @@
             border-radius: 50px;
             transition: all 0.3s ease;
             cursor: pointer;
-            background: rgba(0, 0, 0, 0.6);
+            background: rgba(0, 0, 0, 0.6); /* Button background stays */
             animation: pulse 2s ease-in-out infinite;
             font-weight: bold;
         }
@@ -292,12 +386,12 @@
             background: #f0f0f0;
             color: #666;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            transition: none;
-            cursor: default;
+            transition: all 0.3s ease;
+            cursor: pointer;
         }
 
         .btn-maybe:hover {
-            cursor: default;
+            cursor: pointer;
         }
 
         .btn-no {
@@ -313,20 +407,7 @@
         }
 
         .final-surprise {
-            margin-top: 2rem;
-            font-size: 1.2rem;
-            color: #ff1493;
-            display: none;
-            animation: fadeIn 1s;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .final-surprise.show {
-            display: block;
+            display: none; /* Hide old surprise */
         }
 
         @media (max-width: 480px) {
@@ -350,6 +431,14 @@
             .how-dare-you {
                 font-size: 3rem;
             }
+            
+            .yes-content p {
+                font-size: 1.2rem;
+            }
+            
+            .giant-heart {
+                font-size: 80px;
+            }
         }
     </style>
 </head>
@@ -362,6 +451,18 @@
     <div class="dark-content hidden" id="darkContent">
         <div class="how-dare-you" id="howDareYou">HOW DARE YOU</div>
         <div class="go-back-link" onclick="goBack()">you better go back</div>
+    </div>
+
+    <!-- YES page content (initially hidden) -->
+    <div class="photo-background hidden" id="photoBackground"></div>
+    <div class="photo-overlay hidden" id="photoOverlay"></div>
+    <div class="giant-hearts hidden" id="giantHearts"></div>
+    
+    <div class="yes-content hidden" id="yesContent">
+        <p>🎉 Yay! I knew you'd say yes! 🎉</p>
+        <p>You've made this the best Valentine's Day ever!</p>
+        <p>💑 Here's to us and many more Valentine's Days together! 💑</p>
+        <div class="heart">💕</div>
     </div>
 
     <!-- Main card -->
@@ -386,21 +487,14 @@
         
         <div class="buttons">
             <button class="btn btn-yes" onclick="showSurprise()">YES! 💖</button>
-            <button class="btn btn-maybe" id="maybeButton" onmouseover="moveMaybeButton()" onmousemove="moveMaybeButton()">Maybe... 🤔</button>
+            <button class="btn btn-maybe" id="maybeButton" onmouseenter="runAway()">Maybe... 🤔</button>
             <button class="btn btn-no" onclick="showDarkPage()">NO 💔</button>
-        </div>
-        
-        <div class="final-surprise" id="surprise">
-            <p>🎉 Yay! I knew you'd say yes! 🎉</p>
-            <p>You've made this the best Valentine's Day ever!</p>
-            <p>💑 Here's to us and many more Valentine's Days together! 💑</p>
-            <div class="heart" style="font-size: 3rem;">💕</div>
         </div>
     </div>
 
 <script>
-    // Create moving maybe button - SUPER FAST version
-    function moveMaybeButton() {
+    // Maybe button runs away when mouse enters
+    function runAway() {
         const button = document.getElementById('maybeButton');
         const buttonsContainer = document.querySelector('.buttons');
         
@@ -412,19 +506,65 @@
             const maxX = Math.max(0, containerRect.width - buttonRect.width - 20);
             const maxY = Math.max(0, containerRect.height - buttonRect.height - 20);
             
-            // Generate random position
-            const newX = Math.random() * maxX;
-            const newY = Math.random() * maxY;
+            // Generate random position - goes far away from current position
+            let newX, newY;
             
-            // Apply new position with NO transition - instant movement!
+            // Make it jump to a completely different area
+            if (Math.random() > 0.5) {
+                // Jump to left side or right side
+                newX = Math.random() > 0.5 ? 0 : maxX;
+            } else {
+                newX = Math.random() * maxX;
+            }
+            
+            if (Math.random() > 0.5) {
+                // Jump to top or bottom
+                newY = Math.random() > 0.5 ? 0 : maxY;
+            } else {
+                newY = Math.random() * maxY;
+            }
+            
+            // Apply new position with fast transition
             button.style.position = 'relative';
             button.style.left = newX + 'px';
             button.style.top = newY + 'px';
-            button.style.transition = 'none';
+            button.style.transition = 'all 0.2s ease'; // Fast but visible movement
         }
     }
 
-    // Show dark page (removed flame creation)
+    // Create giant hearts for YES page
+    function createGiantHearts() {
+        const container = document.getElementById('giantHearts');
+        container.innerHTML = ''; // Clear existing hearts
+        
+        // Create 30 giant hearts of various sizes
+        for (let i = 0; i < 30; i++) {
+            const heart = document.createElement('div');
+            heart.className = 'giant-heart';
+            
+            // Random heart emoji
+            const hearts = ['❤️', '💖', '💗', '💓', '💕', '💘', '💝'];
+            heart.innerHTML = hearts[Math.floor(Math.random() * hearts.length)];
+            
+            // Random position
+            heart.style.left = Math.random() * 100 + '%';
+            
+            // Random size between 100px and 300px
+            const size = Math.random() * 200 + 100;
+            heart.style.fontSize = size + 'px';
+            
+            // Random animation duration between 3 and 6 seconds
+            const duration = Math.random() * 3 + 3;
+            heart.style.animation = `floatUp ${duration}s ease-out forwards`;
+            
+            // Random delay
+            heart.style.animationDelay = Math.random() * 2 + 's';
+            
+            container.appendChild(heart);
+        }
+    }
+
+    // Show dark page
     function showDarkPage() {
         const body = document.getElementById('mainBody');
         const mainCard = document.getElementById('mainCard');
@@ -433,8 +573,8 @@
         const realFire = document.getElementById('realFire');
         const realFireSecondary = document.getElementById('realFireSecondary');
         
-        // Remove main-page class and add dark-page
-        body.classList.remove('main-page');
+        // Reset body classes
+        body.className = '';
         body.classList.add('dark-page');
         
         // Hide main card and show dark content + fires
@@ -443,6 +583,51 @@
         elmoFire.classList.remove('hidden');
         realFire.classList.remove('hidden');
         realFireSecondary.classList.remove('hidden');
+        
+        // Hide YES page elements if visible
+        document.getElementById('photoBackground').classList.add('hidden');
+        document.getElementById('photoOverlay').classList.add('hidden');
+        document.getElementById('giantHearts').classList.add('hidden');
+        document.getElementById('yesContent').classList.add('hidden');
+    }
+
+    // Show YES page with photo and giant hearts
+    function showSurprise() {
+        const body = document.getElementById('mainBody');
+        const mainCard = document.getElementById('mainCard');
+        const photoBackground = document.getElementById('photoBackground');
+        const photoOverlay = document.getElementById('photoOverlay');
+        const giantHearts = document.getElementById('giantHearts');
+        const yesContent = document.getElementById('yesContent');
+        
+        // Reset body classes
+        body.className = '';
+        body.classList.add('yes-page');
+        
+        // Hide main card
+        mainCard.classList.add('hidden');
+        
+        // Show YES page elements
+        photoBackground.classList.remove('hidden');
+        photoOverlay.classList.remove('hidden');
+        giantHearts.classList.remove('hidden');
+        yesContent.classList.remove('hidden');
+        
+        // Hide dark page elements if visible
+        document.getElementById('darkContent').classList.add('hidden');
+        document.getElementById('elmoFire').classList.add('hidden');
+        document.getElementById('realFire').classList.add('hidden');
+        document.getElementById('realFireSecondary').classList.add('hidden');
+        
+        // Create giant hearts
+        createGiantHearts();
+        
+        // Keep creating hearts every 2 seconds for continuous effect
+        setInterval(() => {
+            if (body.classList.contains('yes-page')) {
+                createGiantHearts();
+            }
+        }, 2000);
     }
 
     // Go back to main page
@@ -454,51 +639,30 @@
         const realFire = document.getElementById('realFire');
         const realFireSecondary = document.getElementById('realFireSecondary');
         
-        // Remove dark-page class and add main-page
-        body.classList.remove('dark-page');
+        // Reset body classes
+        body.className = '';
         body.classList.add('main-page');
         
-        // Show main card and hide dark content + fires
+        // Show main card
         mainCard.classList.remove('hidden');
+        
+        // Hide dark content + fires
         darkContent.classList.add('hidden');
         elmoFire.classList.add('hidden');
         realFire.classList.add('hidden');
         realFireSecondary.classList.add('hidden');
-    }
-
-    function showSurprise() {
-        document.getElementById('surprise').classList.add('show');
-        // Add celebration hearts
-        for (let i = 0; i < 20; i++) {
-            setTimeout(() => {
-                const heart = document.createElement('div');
-                heart.innerHTML = '❤️';
-                heart.style.position = 'fixed';
-                heart.style.left = Math.random() * 100 + '%';
-                heart.style.top = Math.random() * 100 + '%';
-                heart.style.fontSize = '30px';
-                heart.style.zIndex = '999';
-                heart.style.pointerEvents = 'none';
-                heart.style.animation = 'float 2s ease-out forwards';
-                document.body.appendChild(heart);
-                
-                setTimeout(() => heart.remove(), 2000);
-            }, i * 100);
-        }
+        
+        // Hide YES page elements
+        document.getElementById('photoBackground').classList.add('hidden');
+        document.getElementById('photoOverlay').classList.add('hidden');
+        document.getElementById('giantHearts').classList.add('hidden');
+        document.getElementById('yesContent').classList.add('hidden');
     }
 
     // Initialize
     window.onload = function() {
-        // Initial random position
-        moveMaybeButton();
-        
-        // Move the button CONSTANTLY and VERY FAST (every 10ms!)
-        setInterval(() => {
-            const maybeButton = document.getElementById('maybeButton');
-            if (maybeButton && document.body.classList.contains('main-page')) {
-                moveMaybeButton();
-            }
-        }, 10);
+        // No initial movement - button stays still until hovered
+        // Removed the setInterval that was making it move constantly
     };
 </script>
 </body>
