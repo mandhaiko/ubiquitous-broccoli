@@ -401,130 +401,130 @@
         </div>
     </div>
 
-    <script>
-        // Create moving maybe button
-        function moveMaybeButton() {
-            const button = document.getElementById('maybeButton');
-            const buttonsContainer = document.querySelector('.buttons');
+<script>
+    // Create moving maybe button - SUPER FAST version
+    function moveMaybeButton() {
+        const button = document.getElementById('maybeButton');
+        const buttonsContainer = document.querySelector('.buttons');
+        
+        if (button && buttonsContainer) {
+            const containerRect = buttonsContainer.getBoundingClientRect();
+            const buttonRect = button.getBoundingClientRect();
             
-            if (button && buttonsContainer) {
-                const containerRect = buttonsContainer.getBoundingClientRect();
-                const buttonRect = button.getBoundingClientRect();
+            // Calculate available space
+            const maxX = Math.max(0, containerRect.width - buttonRect.width - 20);
+            const maxY = Math.max(0, containerRect.height - buttonRect.height - 20);
+            
+            // Generate random position
+            const newX = Math.random() * maxX;
+            const newY = Math.random() * maxY;
+            
+            // Apply new position with NO transition - instant movement!
+            button.style.position = 'relative';
+            button.style.left = newX + 'px';
+            button.style.top = newY + 'px';
+            button.style.transition = 'none';
+        }
+    }
+
+    // Create flames for dark page
+    function createFlames() {
+        const container = document.getElementById('flamesContainer');
+        container.innerHTML = ''; // Clear existing flames
+        
+        for (let i = 0; i < 50; i++) {
+            const flame = document.createElement('div');
+            flame.className = 'flame';
+            flame.style.left = Math.random() * 100 + '%';
+            flame.style.animationDelay = Math.random() * 2 + 's';
+            flame.style.height = (Math.random() * 40 + 20) + 'px';
+            flame.style.width = (Math.random() * 15 + 8) + 'px';
+            flame.style.filter = `blur(${Math.random() * 3 + 1}px)`;
+            container.appendChild(flame);
+        }
+    }
+
+    // Show dark page
+    function showDarkPage() {
+        const body = document.getElementById('mainBody');
+        const mainCard = document.getElementById('mainCard');
+        const darkContent = document.getElementById('darkContent');
+        const flamesContainer = document.getElementById('flamesContainer');
+        
+        // Remove main-page class and add dark-page
+        body.classList.remove('main-page');
+        body.classList.add('dark-page');
+        
+        // Hide main card and show dark content
+        mainCard.classList.add('hidden');
+        darkContent.classList.remove('hidden');
+        flamesContainer.classList.remove('hidden');
+        
+        // Create flames
+        createFlames();
+        
+        // Add moving flames effect
+        setInterval(() => {
+            const flames = document.querySelectorAll('.flame');
+            flames.forEach(flame => {
+                const randomX = (Math.random() - 0.5) * 20;
+                const randomY = (Math.random() - 0.5) * 20;
+                flame.style.transform = `translate(${randomX}px, ${randomY}px)`;
+            });
+        }, 200);
+    }
+
+    // Go back to main page
+    function goBack() {
+        const body = document.getElementById('mainBody');
+        const mainCard = document.getElementById('mainCard');
+        const darkContent = document.getElementById('darkContent');
+        const flamesContainer = document.getElementById('flamesContainer');
+        
+        // Remove dark-page class and add main-page
+        body.classList.remove('dark-page');
+        body.classList.add('main-page');
+        
+        // Show main card and hide dark content
+        mainCard.classList.remove('hidden');
+        darkContent.classList.add('hidden');
+        flamesContainer.classList.add('hidden');
+    }
+
+    function showSurprise() {
+        document.getElementById('surprise').classList.add('show');
+        // Add celebration hearts
+        for (let i = 0; i < 20; i++) {
+            setTimeout(() => {
+                const heart = document.createElement('div');
+                heart.innerHTML = '❤️';
+                heart.style.position = 'fixed';
+                heart.style.left = Math.random() * 100 + '%';
+                heart.style.top = Math.random() * 100 + '%';
+                heart.style.fontSize = '30px';
+                heart.style.zIndex = '999';
+                heart.style.pointerEvents = 'none';
+                heart.style.animation = 'float 2s ease-out forwards';
+                document.body.appendChild(heart);
                 
-                // Calculate available space
-                const maxX = containerRect.width - buttonRect.width - 20;
-                const maxY = containerRect.height - buttonRect.height - 20;
-                
-                // Generate random position within container
-                const newX = Math.max(0, Math.min(maxX, Math.random() * maxX));
-                const newY = Math.max(0, Math.min(maxY, Math.random() * maxY));
-                
-                // Apply new position
-                button.style.position = 'relative';
-                button.style.left = newX + 'px';
-                button.style.top = newY + 'px';
-                button.style.transition = 'all 0.1s ease';
+                setTimeout(() => heart.remove(), 2000);
+            }, i * 100);
+        }
+    }
+
+    // Initialize
+    window.onload = function() {
+        // Initial random position
+        moveMaybeButton();
+        
+        // Move the button CONSTANTLY and VERY FAST (every 10ms!)
+        setInterval(() => {
+            const maybeButton = document.getElementById('maybeButton');
+            if (maybeButton && document.body.classList.contains('main-page')) {
+                moveMaybeButton();
             }
-        }
-
-        // Create flames for dark page
-        function createFlames() {
-            const container = document.getElementById('flamesContainer');
-            container.innerHTML = ''; // Clear existing flames
-            
-            for (let i = 0; i < 50; i++) {
-                const flame = document.createElement('div');
-                flame.className = 'flame';
-                flame.style.left = Math.random() * 100 + '%';
-                flame.style.animationDelay = Math.random() * 2 + 's';
-                flame.style.height = (Math.random() * 40 + 20) + 'px';
-                flame.style.width = (Math.random() * 15 + 8) + 'px';
-                flame.style.filter = `blur(${Math.random() * 3 + 1}px)`;
-                container.appendChild(flame);
-            }
-        }
-
-        // Show dark page
-        function showDarkPage() {
-            const body = document.getElementById('mainBody');
-            const mainCard = document.getElementById('mainCard');
-            const darkContent = document.getElementById('darkContent');
-            const flamesContainer = document.getElementById('flamesContainer');
-            
-            // Remove main-page class and add dark-page
-            body.classList.remove('main-page');
-            body.classList.add('dark-page');
-            
-            // Hide main card and show dark content
-            mainCard.classList.add('hidden');
-            darkContent.classList.remove('hidden');
-            flamesContainer.classList.remove('hidden');
-            
-            // Create flames
-            createFlames();
-            
-            // Add moving flames effect
-            setInterval(() => {
-                const flames = document.querySelectorAll('.flame');
-                flames.forEach(flame => {
-                    const randomX = (Math.random() - 0.5) * 20;
-                    const randomY = (Math.random() - 0.5) * 20;
-                    flame.style.transform = `translate(${randomX}px, ${randomY}px)`;
-                });
-            }, 200);
-        }
-
-        // Go back to main page
-        function goBack() {
-            const body = document.getElementById('mainBody');
-            const mainCard = document.getElementById('mainCard');
-            const darkContent = document.getElementById('darkContent');
-            const flamesContainer = document.getElementById('flamesContainer');
-            
-            // Remove dark-page class and add main-page
-            body.classList.remove('dark-page');
-            body.classList.add('main-page');
-            
-            // Show main card and hide dark content
-            mainCard.classList.remove('hidden');
-            darkContent.classList.add('hidden');
-            flamesContainer.classList.add('hidden');
-        }
-
-        function showSurprise() {
-            document.getElementById('surprise').classList.add('show');
-            // Add celebration hearts
-            for (let i = 0; i < 20; i++) {
-                setTimeout(() => {
-                    const heart = document.createElement('div');
-                    heart.innerHTML = '❤️';
-                    heart.style.position = 'fixed';
-                    heart.style.left = Math.random() * 100 + '%';
-                    heart.style.top = Math.random() * 100 + '%';
-                    heart.style.fontSize = '30px';
-                    heart.style.zIndex = '999';
-                    heart.style.pointerEvents = 'none';
-                    heart.style.animation = 'float 2s ease-out forwards';
-                    document.body.appendChild(heart);
-                    
-                    setTimeout(() => heart.remove(), 2000);
-                }, i * 100);
-            }
-        }
-
-        // Initialize
-        window.onload = function() {
-            // Add some initial random position for maybe button
-            moveMaybeButton();
-            
-            // Add periodic movement for maybe button
-            setInterval(() => {
-                const maybeButton = document.getElementById('maybeButton');
-                if (maybeButton && document.body.classList.contains('main-page')) {
-                    moveMaybeButton();
-                }
-            }, 1000);
-        };
-    </script>
+        }, 10);
+    };
+</script>
 </body>
 </html>
