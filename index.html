@@ -32,19 +32,65 @@
             background-attachment: fixed;
         }
 
-        /* Dark page with Elmo fire GIF background */
+        /* Dark page with Elmo and fire at bottom */
         body.dark-page {
-            background-image: url('elmo-fire.gif');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            background-attachment: fixed;
+            background: #000000;
             min-height: 100vh;
             margin: 0;
             padding: 0;
+            position: relative;
         }
 
-        /* Dark overlay to make text readable */
+        /* Elmo GIF positioned at bottom */
+        .elmo-fire-bottom {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 300px;
+            background-image: url('burn-elmo.gif');
+            background-size: cover;
+            background-position: center bottom;
+            background-repeat: no-repeat;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        /* Real fire GIF at bottom */
+        .real-fire-bottom {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 200px;
+            background-image: url('https://media1.tenor.com/m/-D48F6wO2xUAAAAC/fire-burning.gif');
+            background-size: cover;
+            background-position: center bottom;
+            background-repeat: no-repeat;
+            z-index: 2;
+            pointer-events: none;
+            opacity: 0.8;
+            mix-blend-mode: screen;
+        }
+
+        /* Second fire for more intensity */
+        .real-fire-bottom-secondary {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 250px;
+            background-image: url('https://media1.tenor.com/m/G0xVeI4qU6AAAAAC/flames-fire.gif');
+            background-size: cover;
+            background-position: center bottom;
+            background-repeat: no-repeat;
+            z-index: 3;
+            pointer-events: none;
+            opacity: 0.6;
+            mix-blend-mode: screen;
+        }
+
+        /* Dark overlay - made lighter so text stands out */
         body.dark-page::before {
             content: '';
             position: fixed;
@@ -52,82 +98,25 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.6);
-            z-index: 1;
+            background-color: rgba(0, 0, 0, 0.4);
+            z-index: 4;
             pointer-events: none;
         }
 
-        .flames-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 2;
-            overflow: hidden;
-            opacity: 0.3;
-        }
-
-        .flame {
-            position: absolute;
-            bottom: 0;
-            width: 10px;
-            height: 30px;
-            background: linear-gradient(to top, #ff6b00, #ffd700);
-            border-radius: 50% 50% 20% 20%;
-            transform-origin: center bottom;
-            animation: flame-flicker 0.5s ease-in-out infinite alternate;
-            opacity: 0.8;
-            filter: blur(1px);
-        }
-
-        @keyframes flame-flicker {
-            0% { height: 30px; width: 10px; opacity: 0.8; filter: blur(1px); }
-            50% { height: 45px; width: 15px; opacity: 1; filter: blur(2px); }
-            100% { height: 35px; width: 12px; opacity: 0.9; filter: blur(1px); }
-        }
-
-        .flame::before {
-            content: '';
-            position: absolute;
-            bottom: 100%;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 20px;
-            height: 20px;
-            background: radial-gradient(circle, #ffaa00, #ff4400);
-            border-radius: 50%;
-            filter: blur(3px);
-            animation: flame-glow 0.5s ease-in-out infinite alternate;
-        }
-
-        @keyframes flame-glow {
-            0% { width: 20px; height: 20px; opacity: 0.7; }
-            100% { width: 30px; height: 30px; opacity: 1; }
-        }
-
-        .flame:nth-child(odd) {
-            animation-delay: -0.2s;
-        }
-
-        .flame:nth-child(3n) {
-            animation-duration: 0.7s;
-        }
-
-        /* Dark content styling */
+        /* Dark content styling - moved higher up */
         .dark-content {
             position: relative;
-            z-index: 3;
+            z-index: 5;
             text-align: center;
-            background: rgba(0, 0, 0, 0.7);
-            padding: 3rem;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 2rem;
             border-radius: 20px;
             border: 2px solid #ff6b00;
-            box-shadow: 0 0 50px rgba(255, 107, 0, 0.3);
-            margin: 20px;
+            box-shadow: 0 0 50px rgba(255, 107, 0, 0.5);
+            margin-top: -150px; /* Pulls content higher up */
             max-width: 800px;
             width: 90%;
+            backdrop-filter: blur(5px);
         }
 
         .how-dare-you {
@@ -137,11 +126,12 @@
             text-align: center;
             text-transform: uppercase;
             animation: shake 0.5s ease-in-out infinite;
-            margin-bottom: 2rem;
+            margin-bottom: 1rem;
             background: linear-gradient(45deg, #ff6b00, #ffd700, #ff4400, #ffaa00);
             -webkit-background-clip: text;
             background-clip: text;
-            -webkit-text-stroke: 2px rgba(255, 107, 0, 0.3);
+            -webkit-text-stroke: 2px rgba(255, 107, 0, 0.5);
+            text-shadow: 0 0 20px rgba(255, 100, 0, 0.7);
         }
 
         @keyframes shake {
@@ -155,15 +145,16 @@
             color: #ffaa00;
             font-size: 1.5rem;
             text-decoration: none;
-            margin-top: 2rem;
+            margin-top: 1rem;
             display: inline-block;
             padding: 1rem 2rem;
             border: 2px solid #ff6b00;
             border-radius: 50px;
             transition: all 0.3s ease;
             cursor: pointer;
-            background: rgba(0, 0, 0, 0.5);
+            background: rgba(0, 0, 0, 0.6);
             animation: pulse 2s ease-in-out infinite;
+            font-weight: bold;
         }
 
         .go-back-link:hover {
@@ -301,7 +292,7 @@
             background: #f0f0f0;
             color: #666;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            transition: all 0.1s ease;
+            transition: none;
             cursor: default;
         }
 
@@ -355,12 +346,18 @@
                 padding: 12px 30px;
                 font-size: 1.1rem;
             }
+            
+            .how-dare-you {
+                font-size: 3rem;
+            }
         }
     </style>
 </head>
 <body class="main-page" id="mainBody">
     <!-- Dark page content (initially hidden) -->
-    <div class="flames-container hidden" id="flamesContainer"></div>
+    <div class="elmo-fire-bottom hidden" id="elmoFire"></div>
+    <div class="real-fire-bottom hidden" id="realFire"></div>
+    <div class="real-fire-bottom-secondary hidden" id="realFireSecondary"></div>
     
     <div class="dark-content hidden" id="darkContent">
         <div class="how-dare-you" id="howDareYou">HOW DARE YOU</div>
@@ -389,7 +386,7 @@
         
         <div class="buttons">
             <button class="btn btn-yes" onclick="showSurprise()">YES! 💖</button>
-            <button class="btn btn-maybe" id="maybeButton" onmouseover="moveMaybeButton()">Maybe... 🤔</button>
+            <button class="btn btn-maybe" id="maybeButton" onmouseover="moveMaybeButton()" onmousemove="moveMaybeButton()">Maybe... 🤔</button>
             <button class="btn btn-no" onclick="showDarkPage()">NO 💔</button>
         </div>
         
@@ -427,51 +424,25 @@
         }
     }
 
-    // Create flames for dark page
-    function createFlames() {
-        const container = document.getElementById('flamesContainer');
-        container.innerHTML = ''; // Clear existing flames
-        
-        for (let i = 0; i < 50; i++) {
-            const flame = document.createElement('div');
-            flame.className = 'flame';
-            flame.style.left = Math.random() * 100 + '%';
-            flame.style.animationDelay = Math.random() * 2 + 's';
-            flame.style.height = (Math.random() * 40 + 20) + 'px';
-            flame.style.width = (Math.random() * 15 + 8) + 'px';
-            flame.style.filter = `blur(${Math.random() * 3 + 1}px)`;
-            container.appendChild(flame);
-        }
-    }
-
-    // Show dark page
+    // Show dark page (removed flame creation)
     function showDarkPage() {
         const body = document.getElementById('mainBody');
         const mainCard = document.getElementById('mainCard');
         const darkContent = document.getElementById('darkContent');
-        const flamesContainer = document.getElementById('flamesContainer');
+        const elmoFire = document.getElementById('elmoFire');
+        const realFire = document.getElementById('realFire');
+        const realFireSecondary = document.getElementById('realFireSecondary');
         
         // Remove main-page class and add dark-page
         body.classList.remove('main-page');
         body.classList.add('dark-page');
         
-        // Hide main card and show dark content
+        // Hide main card and show dark content + fires
         mainCard.classList.add('hidden');
         darkContent.classList.remove('hidden');
-        flamesContainer.classList.remove('hidden');
-        
-        // Create flames
-        createFlames();
-        
-        // Add moving flames effect
-        setInterval(() => {
-            const flames = document.querySelectorAll('.flame');
-            flames.forEach(flame => {
-                const randomX = (Math.random() - 0.5) * 20;
-                const randomY = (Math.random() - 0.5) * 20;
-                flame.style.transform = `translate(${randomX}px, ${randomY}px)`;
-            });
-        }, 200);
+        elmoFire.classList.remove('hidden');
+        realFire.classList.remove('hidden');
+        realFireSecondary.classList.remove('hidden');
     }
 
     // Go back to main page
@@ -479,16 +450,20 @@
         const body = document.getElementById('mainBody');
         const mainCard = document.getElementById('mainCard');
         const darkContent = document.getElementById('darkContent');
-        const flamesContainer = document.getElementById('flamesContainer');
+        const elmoFire = document.getElementById('elmoFire');
+        const realFire = document.getElementById('realFire');
+        const realFireSecondary = document.getElementById('realFireSecondary');
         
         // Remove dark-page class and add main-page
         body.classList.remove('dark-page');
         body.classList.add('main-page');
         
-        // Show main card and hide dark content
+        // Show main card and hide dark content + fires
         mainCard.classList.remove('hidden');
         darkContent.classList.add('hidden');
-        flamesContainer.classList.add('hidden');
+        elmoFire.classList.add('hidden');
+        realFire.classList.add('hidden');
+        realFireSecondary.classList.add('hidden');
     }
 
     function showSurprise() {
