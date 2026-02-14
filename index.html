@@ -124,23 +124,6 @@
             z-index: 2;
         }
 
-        .special-message {
-            background: rgba(255, 255, 255, 0.7);
-            padding: 1.5rem;
-            border-radius: 20px;
-            margin: 1.5rem 0;
-            border: 2px dashed #ff69b4;
-            position: relative;
-            z-index: 2;
-        }
-
-        .special-message p {
-            color: #d43f8d;
-            font-style: italic;
-            font-size: 1.2rem;
-            margin: 0;
-        }
-
         .valentine-question {
             background: #ff1493;
             color: white;
@@ -255,14 +238,14 @@
             background-repeat: no-repeat;
             z-index: 100;
             pointer-events: none;
-            animation: fadeOut 2s ease-in-out forwards;
+            animation: fadeOut 1.2s ease-in-out forwards; /* Faster fade out */
         }
 
         @keyframes fadeOut {
             0% {
                 opacity: 1;
             }
-            70% {
+            60% {
                 opacity: 1;
             }
             100% {
@@ -284,7 +267,7 @@
             justify-content: center;
             gap: 20px;
             opacity: 0;
-            animation: contentFadeIn 1s ease-in-out 1.5s forwards;
+            animation: contentFadeIn 0.5s ease-in-out 0.8s forwards; /* Faster and shorter delay */
         }
 
         @keyframes contentFadeIn {
@@ -305,7 +288,7 @@
                 3px 3px 0 #ffffff,
                 6px 6px 0 rgba(255, 20, 147, 0.2);
             margin-bottom: 10px;
-            animation: titlePop 1s ease-out;
+            animation: titlePop 0.6s ease-out; /* Faster pop */
             line-height: 1.2;
             background: rgba(255, 255, 255, 0.3);
             padding: 12px 25px;
@@ -336,7 +319,7 @@
             border-radius: 0;
             box-shadow: none;
             border: none;
-            animation: imageAppear 1s ease-out 0.3s both;
+            animation: imageAppear 0.6s ease-out 0.2s both; /* Faster and shorter delay */
             margin: 10px 0;
         }
 
@@ -365,7 +348,7 @@
             backdrop-filter: blur(5px);
             max-width: 700px;
             width: 100%;
-            animation: messageAppear 1s ease-out 0.6s both;
+            animation: messageAppear 0.6s ease-out 0.3s both; /* Faster and shorter delay */
             line-height: 1.4;
             font-weight: 500;
         }
@@ -595,11 +578,6 @@
             <p>✨ For You! ✨</p>
         </div>
         
-        <div class="special-message">
-            <p>Every day with you feels like Valentine's Day,</p>
-            <p>but today we get to celebrate it extra special! 🌹</p>
-        </div>
-        
         <div class="valentine-question">
             Will you be my Valentine? 💝
         </div>
@@ -657,10 +635,10 @@
         // Show transition GIF
         transitionGif.classList.remove('hidden');
         
-        // After GIF animation completes, show YES page
+        // After GIF animation completes, show YES page (faster now)
         setTimeout(() => {
             showYesPage();
-        }, 2000); // Matches the animation duration
+        }, 1200); // Reduced from 2000ms to 1200ms to match faster animation
     }
 
     // Show YES page
