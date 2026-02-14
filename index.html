@@ -23,13 +23,195 @@
             transition: all 0.5s ease;
         }
 
-        /* Main page - Sequoia Forest Background */
+        /* Main page - with uploaded photo */
         body.main-page {
-            background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),
-                        url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="100%" height="100%"><rect width="800" height="600" fill="%2324491c"/><polygon points="100,400 150,200 200,400" fill="%232b5e2b"/><polygon points="120,350 150,150 180,350" fill="%233f7840"/><polygon points="80,450 150,250 220,450" fill="%231e3a1e"/><polygon points="500,350 550,150 600,350" fill="%232b5e2b"/><polygon points="520,300 550,100 580,300" fill="%233f7840"/><polygon points="480,400 550,200 620,400" fill="%231e3a1e"/><polygon points="300,450 350,100 400,450" fill="%232b5e2b"/><polygon points="280,400 350,50 420,400" fill="%231e3a1e"/><polygon points="320,350 350,150 380,350" fill="%233f7840"/><polygon points="650,400 700,200 750,400" fill="%232b5e2b"/><polygon points="670,350 700,150 730,350" fill="%233f7840"/><circle cx="400" cy="80" r="40" fill="%23f1c40f" opacity="0.6"/><circle cx="450" cy="100" r="30" fill="%23f39c12" opacity="0.5"/></svg>');
+            background-image: url('_MG_9395.JPG');
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
+            position: relative;
+        }
+
+        /* Semi-transparent overlay for better readability */
+        body.main-page::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.2);
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        /* Paper collage box - main card */
+        .card {
+            background: rgba(173, 216, 230, 0.9); /* Light blue */
+            padding: 3rem;
+            border-radius: 60% 40% 70% 30% / 40% 60% 30% 70%; /* Wavy edges */
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            max-width: 600px;
+            width: 90%;
+            position: relative;
+            z-index: 3;
+            backdrop-filter: blur(5px);
+            border: 3px solid rgba(255, 255, 255, 0.8);
+            animation: cardAppear 1s ease-out;
+            margin: 20px;
+            transform: rotate(-1deg);
+        }
+
+        /* Second paper collage box - lighter blue, underneath */
+        .card::after {
+            content: '';
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            right: -15px;
+            bottom: -15px;
+            background: rgba(200, 230, 255, 0.6); /* Lighter blue */
+            border-radius: 45% 55% 65% 35% / 55% 45% 35% 65%; /* Different wavy pattern */
+            z-index: -1;
+            border: 2px solid rgba(255, 255, 255, 0.5);
+            pointer-events: none;
+        }
+
+        @keyframes cardAppear {
+            0% {
+                transform: scale(0.8) rotate(-2deg);
+                opacity: 0;
+            }
+            100% {
+                transform: scale(1) rotate(-1deg);
+                opacity: 1;
+            }
+        }
+
+        h1 {
+            color: #ff1493;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.5);
+            position: relative;
+            z-index: 2;
+        }
+
+        .heart {
+            font-size: 4rem;
+            margin: 1rem 0;
+            animation: heartbeat 1.2s ease-in-out infinite;
+            position: relative;
+            z-index: 2;
+        }
+
+        @keyframes heartbeat {
+            0% { transform: scale(1); }
+            14% { transform: scale(1.3); }
+            28% { transform: scale(1); }
+            42% { transform: scale(1.3); }
+            70% { transform: scale(1); }
+        }
+
+        .message {
+            font-size: 1.3rem;
+            color: #333;
+            line-height: 1.8;
+            margin: 2rem 0;
+            padding: 0 1rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .special-message {
+            background: rgba(255, 255, 255, 0.7);
+            padding: 1.5rem;
+            border-radius: 40% 60% 50% 50% / 50% 40% 60% 50%;
+            margin: 1.5rem 0;
+            border: 2px dashed #ff69b4;
+            position: relative;
+            z-index: 2;
+        }
+
+        .special-message p {
+            color: #d43f8d;
+            font-style: italic;
+            font-size: 1.2rem;
+            margin: 0;
+        }
+
+        .valentine-question {
+            background: #ff1493;
+            color: white;
+            padding: 1rem;
+            border-radius: 50% 40% 60% 40% / 40% 50% 50% 60%;
+            font-size: 1.4rem;
+            margin: 1.5rem 0;
+            font-weight: bold;
+            position: relative;
+            z-index: 2;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+            position: relative;
+            min-height: 80px;
+            z-index: 2;
+        }
+
+        .btn {
+            padding: 15px 40px;
+            font-size: 1.3rem;
+            border: none;
+            border-radius: 40% 60% 50% 50% / 50% 40% 60% 50%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: bold;
+            text-decoration: none;
+            display: inline-block;
+            position: relative;
+            z-index: 2;
+        }
+
+        .btn-yes {
+            background: #ff1493;
+            color: white;
+            box-shadow: 0 5px 15px rgba(255, 20, 147, 0.4);
+        }
+
+        .btn-yes:hover {
+            transform: scale(1.1);
+            background: #ff69b4;
+            box-shadow: 0 8px 20px rgba(255, 20, 147, 0.6);
+        }
+
+        .btn-maybe {
+            background: #f0f0f0;
+            color: #666;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .btn-maybe:hover {
+            cursor: pointer;
+        }
+
+        .btn-no {
+            background: #333;
+            color: white;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .btn-no:hover {
+            background: #ff0000;
+            transform: scale(1.1);
+            box-shadow: 0 8px 20px rgba(255, 0, 0, 0.6);
         }
 
         /* YES page with photo background */
@@ -43,46 +225,61 @@
             justify-content: center;
         }
 
-        /* Photo background */
+        /* Photo background for YES page */
         .photo-background {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-image: url('your-photo.jpg'); /* REPLACE THIS WITH YOUR PHOTO FILENAME */
+            background-image: url('_MG_9395.JPG');
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
             z-index: 1;
         }
 
-        /* Dark overlay for photo */
+        /* Light overlay for photo */
         .photo-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.4);
+            background-color: rgba(255, 255, 255, 0.2);
             z-index: 2;
             pointer-events: none;
         }
 
-        /* YES content styling */
+        /* YES content styling - also wavy */
         .yes-content {
             position: relative;
             z-index: 10;
             text-align: center;
-            background: rgba(255, 255, 255, 0.85);
+            background: rgba(255, 255, 255, 0.9);
             padding: 3rem;
-            border-radius: 30px;
+            border-radius: 60% 40% 70% 30% / 40% 60% 30% 70%;
             box-shadow: 0 20px 60px rgba(255, 20, 147, 0.3);
             max-width: 800px;
             width: 90%;
-            backdrop-filter: blur(10px);
             border: 3px solid white;
             animation: fadeIn 1s;
+            transform: rotate(1deg);
+        }
+
+        /* Second layer for YES content */
+        .yes-content::after {
+            content: '';
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            right: -15px;
+            bottom: -15px;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 45% 55% 65% 35% / 55% 45% 35% 65%;
+            z-index: -1;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            pointer-events: none;
         }
 
         .yes-content p {
@@ -99,37 +296,65 @@
             animation: heartbeat 1.2s ease-in-out infinite;
         }
 
-        /* Giant hearts container */
-        .giant-hearts {
+        /* Transition hearts container */
+        .transition-hearts {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
             pointer-events: none;
-            z-index: 5;
+            z-index: 100;
             overflow: hidden;
         }
 
-        .giant-heart {
+        .transition-heart {
             position: absolute;
-            color: rgba(255, 20, 147, 0.6);
-            font-size: 150px;
-            animation: floatUp 4s ease-out forwards;
-            text-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
-            z-index: 6;
+            color: #ff1493;
+            font-size: 100px;
+            animation: heartTransition 2s ease-out forwards;
+            text-shadow: 0 0 30px rgba(255, 255, 255, 0.8);
+            z-index: 101;
+            opacity: 0;
         }
 
-        @keyframes floatUp {
+        @keyframes heartTransition {
             0% {
-                transform: translateY(100vh) scale(0.5) rotate(0deg);
+                transform: scale(0) translate(0, 0);
                 opacity: 0;
             }
             20% {
+                transform: scale(1.5) translate(0, 0);
+                opacity: 1;
+            }
+            80% {
+                transform: scale(1.5) translate(0, 0);
                 opacity: 1;
             }
             100% {
-                transform: translateY(-200px) scale(1.5) rotate(20deg);
+                transform: scale(3) translate(0, -50px);
+                opacity: 0;
+            }
+        }
+
+        /* Burst animation for final hearts */
+        .burst-heart {
+            position: absolute;
+            color: #ff1493;
+            font-size: 150px;
+            animation: heartBurst 0.8s ease-out forwards;
+            text-shadow: 0 0 40px rgba(255, 255, 255, 0.9);
+            z-index: 102;
+            pointer-events: none;
+        }
+
+        @keyframes heartBurst {
+            0% {
+                transform: scale(1) translate(0, 0);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(8) translate(0, -100px);
                 opacity: 0;
             }
         }
@@ -149,7 +374,7 @@
             bottom: 0;
             left: 0;
             width: 100%;
-            height: 100%; /* Changed to full height */
+            height: 100%;
             background-image: url('burn-elmo.gif');
             background-size: cover;
             background-position: center;
@@ -194,15 +419,15 @@
 
         /* REMOVED the dark overlay - now fully transparent behind text */
         body.dark-page::before {
-            display: none; /* Removes the black overlay */
+            display: none;
         }
 
-        /* Dark content styling - NOW FULLY TRANSPARENT except button */
+        /* Dark content styling - FULLY TRANSPARENT except button */
         .dark-content {
             position: relative;
             z-index: 5;
             text-align: center;
-            background: transparent; /* Changed from rgba to transparent */
+            background: transparent;
             padding: 2rem;
             border-radius: 20px;
             border: 2px solid #ff6b00;
@@ -210,7 +435,7 @@
             margin-top: -150px;
             max-width: 800px;
             width: 90%;
-            backdrop-filter: none; /* Removed blur */
+            backdrop-filter: none;
         }
 
         .how-dare-you {
@@ -246,7 +471,7 @@
             border-radius: 50px;
             transition: all 0.3s ease;
             cursor: pointer;
-            background: rgba(0, 0, 0, 0.6); /* Button background stays */
+            background: rgba(0, 0, 0, 0.6);
             animation: pulse 2s ease-in-out infinite;
             font-weight: bold;
         }
@@ -265,149 +490,6 @@
 
         .hidden {
             display: none !important;
-        }
-
-        .card {
-            background: rgba(255, 255, 255, 0.95);
-            padding: 3rem;
-            border-radius: 30px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
-            text-align: center;
-            max-width: 600px;
-            width: 100%;
-            position: relative;
-            z-index: 2;
-            backdrop-filter: blur(10px);
-            border: 3px solid white;
-            animation: cardAppear 1s ease-out;
-        }
-
-        @keyframes cardAppear {
-            0% {
-                transform: scale(0.8);
-                opacity: 0;
-            }
-            100% {
-                transform: scale(1);
-                opacity: 1;
-            }
-        }
-
-        h1 {
-            color: #ff1493;
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-            text-shadow: 2px 2px 4px rgba(255, 20, 147, 0.2);
-        }
-
-        .heart {
-            font-size: 4rem;
-            margin: 1rem 0;
-            animation: heartbeat 1.2s ease-in-out infinite;
-        }
-
-        @keyframes heartbeat {
-            0% { transform: scale(1); }
-            14% { transform: scale(1.3); }
-            28% { transform: scale(1); }
-            42% { transform: scale(1.3); }
-            70% { transform: scale(1); }
-        }
-
-        .message {
-            font-size: 1.3rem;
-            color: #666;
-            line-height: 1.8;
-            margin: 2rem 0;
-            padding: 0 1rem;
-        }
-
-        .special-message {
-            background: linear-gradient(135deg, #fff0f5, #ffe4e1);
-            padding: 1.5rem;
-            border-radius: 20px;
-            margin: 1.5rem 0;
-            border: 2px dashed #ff69b4;
-        }
-
-        .special-message p {
-            color: #d43f8d;
-            font-style: italic;
-            font-size: 1.2rem;
-            margin: 0;
-        }
-
-        .valentine-question {
-            background: #ff1493;
-            color: white;
-            padding: 1rem;
-            border-radius: 50px;
-            font-size: 1.4rem;
-            margin: 1.5rem 0;
-            font-weight: bold;
-        }
-
-        .buttons {
-            display: flex;
-            gap: 20px;
-            justify-content: center;
-            margin: 2rem 0;
-            flex-wrap: wrap;
-            position: relative;
-            min-height: 80px;
-        }
-
-        .btn {
-            padding: 15px 40px;
-            font-size: 1.3rem;
-            border: none;
-            border-radius: 50px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-weight: bold;
-            text-decoration: none;
-            display: inline-block;
-            position: relative;
-        }
-
-        .btn-yes {
-            background: #ff1493;
-            color: white;
-            box-shadow: 0 5px 15px rgba(255, 20, 147, 0.4);
-        }
-
-        .btn-yes:hover {
-            transform: scale(1.1);
-            background: #ff69b4;
-            box-shadow: 0 8px 20px rgba(255, 20, 147, 0.6);
-        }
-
-        .btn-maybe {
-            background: #f0f0f0;
-            color: #666;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            transition: all 0.3s ease;
-            cursor: pointer;
-        }
-
-        .btn-maybe:hover {
-            cursor: pointer;
-        }
-
-        .btn-no {
-            background: #333;
-            color: white;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-        }
-
-        .btn-no:hover {
-            background: #ff0000;
-            transform: scale(1.1);
-            box-shadow: 0 8px 20px rgba(255, 0, 0, 0.6);
-        }
-
-        .final-surprise {
-            display: none; /* Hide old surprise */
         }
 
         @media (max-width: 480px) {
@@ -435,10 +517,6 @@
             .yes-content p {
                 font-size: 1.2rem;
             }
-            
-            .giant-heart {
-                font-size: 80px;
-            }
         }
     </style>
 </head>
@@ -453,10 +531,12 @@
         <div class="go-back-link" onclick="goBack()">you better go back</div>
     </div>
 
+    <!-- Transition hearts container (initially hidden) -->
+    <div class="transition-hearts hidden" id="transitionHearts"></div>
+
     <!-- YES page content (initially hidden) -->
     <div class="photo-background hidden" id="photoBackground"></div>
     <div class="photo-overlay hidden" id="photoOverlay"></div>
-    <div class="giant-hearts hidden" id="giantHearts"></div>
     
     <div class="yes-content hidden" id="yesContent">
         <p>🎉 Yay! I knew you'd say yes! 🎉</p>
@@ -486,7 +566,7 @@
         </div>
         
         <div class="buttons">
-            <button class="btn btn-yes" onclick="showSurprise()">YES! 💖</button>
+            <button class="btn btn-yes" onclick="startHeartTransition()">YES! 💖</button>
             <button class="btn btn-maybe" id="maybeButton" onmouseenter="runAway()">Maybe... 🤔</button>
             <button class="btn btn-no" onclick="showDarkPage()">NO 💔</button>
         </div>
@@ -502,66 +582,142 @@
             const containerRect = buttonsContainer.getBoundingClientRect();
             const buttonRect = button.getBoundingClientRect();
             
-            // Calculate available space
             const maxX = Math.max(0, containerRect.width - buttonRect.width - 20);
             const maxY = Math.max(0, containerRect.height - buttonRect.height - 20);
             
-            // Generate random position - goes far away from current position
             let newX, newY;
             
-            // Make it jump to a completely different area
             if (Math.random() > 0.5) {
-                // Jump to left side or right side
                 newX = Math.random() > 0.5 ? 0 : maxX;
             } else {
                 newX = Math.random() * maxX;
             }
             
             if (Math.random() > 0.5) {
-                // Jump to top or bottom
                 newY = Math.random() > 0.5 ? 0 : maxY;
             } else {
                 newY = Math.random() * maxY;
             }
             
-            // Apply new position with fast transition
             button.style.position = 'relative';
             button.style.left = newX + 'px';
             button.style.top = newY + 'px';
-            button.style.transition = 'all 0.2s ease'; // Fast but visible movement
+            button.style.transition = 'all 0.2s ease';
         }
     }
 
-    // Create giant hearts for YES page
-    function createGiantHearts() {
-        const container = document.getElementById('giantHearts');
-        container.innerHTML = ''; // Clear existing hearts
+    // Start heart transition when YES is clicked
+    function startHeartTransition() {
+        const body = document.getElementById('mainBody');
+        const mainCard = document.getElementById('mainCard');
+        const transitionHearts = document.getElementById('transitionHearts');
         
-        // Create 30 giant hearts of various sizes
-        for (let i = 0; i < 30; i++) {
-            const heart = document.createElement('div');
-            heart.className = 'giant-heart';
-            
-            // Random heart emoji
-            const hearts = ['❤️', '💖', '💗', '💓', '💕', '💘', '💝'];
-            heart.innerHTML = hearts[Math.floor(Math.random() * hearts.length)];
-            
-            // Random position
-            heart.style.left = Math.random() * 100 + '%';
-            
-            // Random size between 100px and 300px
-            const size = Math.random() * 200 + 100;
-            heart.style.fontSize = size + 'px';
-            
-            // Random animation duration between 3 and 6 seconds
-            const duration = Math.random() * 3 + 3;
-            heart.style.animation = `floatUp ${duration}s ease-out forwards`;
-            
-            // Random delay
-            heart.style.animationDelay = Math.random() * 2 + 's';
-            
-            container.appendChild(heart);
+        // Hide main card
+        mainCard.classList.add('hidden');
+        
+        // Show transition hearts container
+        transitionHearts.classList.remove('hidden');
+        
+        // Create hearts one by one
+        createHeartsOneByOne();
+    }
+
+    // Create hearts one by one
+    function createHeartsOneByOne() {
+        const transitionHearts = document.getElementById('transitionHearts');
+        const totalHearts = 30;
+        let heartsCreated = 0;
+        
+        function createNextHeart() {
+            if (heartsCreated < totalHearts) {
+                const heart = document.createElement('div');
+                heart.className = 'transition-heart';
+                
+                const hearts = ['❤️', '💖', '💗', '💓', '💕', '💘', '💝'];
+                heart.innerHTML = hearts[Math.floor(Math.random() * hearts.length)];
+                
+                heart.style.left = Math.random() * 100 + '%';
+                heart.style.top = Math.random() * 100 + '%';
+                
+                const size = Math.random() * 150 + 80;
+                heart.style.fontSize = size + 'px';
+                
+                const duration = Math.random() * 1 + 1.5;
+                heart.style.animation = `heartTransition ${duration}s ease-out forwards`;
+                
+                transitionHearts.appendChild(heart);
+                
+                heartsCreated++;
+                
+                // Schedule next heart
+                setTimeout(createNextHeart, 100); // 100ms between each heart
+            } else {
+                // All hearts created, schedule the burst after last heart finishes
+                setTimeout(createBurstEffect, 2000);
+            }
         }
+        
+        // Start creating hearts
+        createNextHeart();
+    }
+
+    // Create burst effect (all hearts burst together)
+    function createBurstEffect() {
+        const transitionHearts = document.getElementById('transitionHearts');
+        const body = document.getElementById('mainBody');
+        
+        // Clear transition hearts
+        transitionHearts.innerHTML = '';
+        
+        // Create multiple hearts that burst
+        for (let i = 0; i < 20; i++) {
+            const burstHeart = document.createElement('div');
+            burstHeart.className = 'burst-heart';
+            
+            const hearts = ['❤️', '💖', '💗', '💓', '💕', '💘', '💝'];
+            burstHeart.innerHTML = hearts[Math.floor(Math.random() * hearts.length)];
+            
+            burstHeart.style.left = Math.random() * 100 + '%';
+            burstHeart.style.top = Math.random() * 100 + '%';
+            
+            const size = Math.random() * 200 + 100;
+            burstHeart.style.fontSize = size + 'px';
+            
+            transitionHearts.appendChild(burstHeart);
+        }
+        
+        // After burst, show the YES page
+        setTimeout(() => {
+            showYesPage();
+        }, 800);
+    }
+
+    // Show YES page
+    function showYesPage() {
+        const body = document.getElementById('mainBody');
+        const transitionHearts = document.getElementById('transitionHearts');
+        const photoBackground = document.getElementById('photoBackground');
+        const photoOverlay = document.getElementById('photoOverlay');
+        const yesContent = document.getElementById('yesContent');
+        
+        // Reset body classes
+        body.className = '';
+        body.classList.add('yes-page');
+        
+        // Hide transition hearts
+        transitionHearts.classList.add('hidden');
+        transitionHearts.innerHTML = '';
+        
+        // Show YES page elements
+        photoBackground.classList.remove('hidden');
+        photoOverlay.classList.remove('hidden');
+        yesContent.classList.remove('hidden');
+        
+        // Hide dark page elements if visible
+        document.getElementById('darkContent').classList.add('hidden');
+        document.getElementById('elmoFire').classList.add('hidden');
+        document.getElementById('realFire').classList.add('hidden');
+        document.getElementById('realFireSecondary').classList.add('hidden');
     }
 
     // Show dark page
@@ -572,62 +728,27 @@
         const elmoFire = document.getElementById('elmoFire');
         const realFire = document.getElementById('realFire');
         const realFireSecondary = document.getElementById('realFireSecondary');
+        const transitionHearts = document.getElementById('transitionHearts');
         
         // Reset body classes
         body.className = '';
         body.classList.add('dark-page');
         
-        // Hide main card and show dark content + fires
+        // Hide everything else
         mainCard.classList.add('hidden');
+        transitionHearts.classList.add('hidden');
+        transitionHearts.innerHTML = '';
+        
+        // Show dark content + fires
         darkContent.classList.remove('hidden');
         elmoFire.classList.remove('hidden');
         realFire.classList.remove('hidden');
         realFireSecondary.classList.remove('hidden');
         
-        // Hide YES page elements if visible
+        // Hide YES page elements
         document.getElementById('photoBackground').classList.add('hidden');
         document.getElementById('photoOverlay').classList.add('hidden');
-        document.getElementById('giantHearts').classList.add('hidden');
         document.getElementById('yesContent').classList.add('hidden');
-    }
-
-    // Show YES page with photo and giant hearts
-    function showSurprise() {
-        const body = document.getElementById('mainBody');
-        const mainCard = document.getElementById('mainCard');
-        const photoBackground = document.getElementById('photoBackground');
-        const photoOverlay = document.getElementById('photoOverlay');
-        const giantHearts = document.getElementById('giantHearts');
-        const yesContent = document.getElementById('yesContent');
-        
-        // Reset body classes
-        body.className = '';
-        body.classList.add('yes-page');
-        
-        // Hide main card
-        mainCard.classList.add('hidden');
-        
-        // Show YES page elements
-        photoBackground.classList.remove('hidden');
-        photoOverlay.classList.remove('hidden');
-        giantHearts.classList.remove('hidden');
-        yesContent.classList.remove('hidden');
-        
-        // Hide dark page elements if visible
-        document.getElementById('darkContent').classList.add('hidden');
-        document.getElementById('elmoFire').classList.add('hidden');
-        document.getElementById('realFire').classList.add('hidden');
-        document.getElementById('realFireSecondary').classList.add('hidden');
-        
-        // Create giant hearts
-        createGiantHearts();
-        
-        // Keep creating hearts every 2 seconds for continuous effect
-        setInterval(() => {
-            if (body.classList.contains('yes-page')) {
-                createGiantHearts();
-            }
-        }, 2000);
     }
 
     // Go back to main page
@@ -638,6 +759,7 @@
         const elmoFire = document.getElementById('elmoFire');
         const realFire = document.getElementById('realFire');
         const realFireSecondary = document.getElementById('realFireSecondary');
+        const transitionHearts = document.getElementById('transitionHearts');
         
         // Reset body classes
         body.className = '';
@@ -646,23 +768,23 @@
         // Show main card
         mainCard.classList.remove('hidden');
         
-        // Hide dark content + fires
+        // Hide everything else
         darkContent.classList.add('hidden');
         elmoFire.classList.add('hidden');
         realFire.classList.add('hidden');
         realFireSecondary.classList.add('hidden');
+        transitionHearts.classList.add('hidden');
+        transitionHearts.innerHTML = '';
         
         // Hide YES page elements
         document.getElementById('photoBackground').classList.add('hidden');
         document.getElementById('photoOverlay').classList.add('hidden');
-        document.getElementById('giantHearts').classList.add('hidden');
         document.getElementById('yesContent').classList.add('hidden');
     }
 
     // Initialize
     window.onload = function() {
         // No initial movement - button stays still until hovered
-        // Removed the setInterval that was making it move constantly
     };
 </script>
 </body>
