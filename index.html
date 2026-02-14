@@ -35,9 +35,17 @@
         }
 
         /* Dark page with flames */
-        body.dark-page {
-            background: #000;
-            position: relative;
+<body class="main-page" id="mainBody">
+    <!-- Dark page content -->
+    <div class="flames-container hidden" id="flamesContainer"></div>
+    
+    <div class="dark-content hidden" id="darkContent">
+        <div class="how-dare-you" id="howDareYou">HOW DARE YOU</div>
+        <div class="go-back-link" onclick="goBack()">you better go back</div>
+    </div>
+
+    <!-- Main card (rest of your HTML) -->
+    <!-- ... -->
         }
 
         .flames-container {
