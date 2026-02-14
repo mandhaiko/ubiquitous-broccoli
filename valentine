@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>💝 A Special Surprise 💝</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #ffb6c1 0%, #ff69b4 100%);
+            font-family: 'Arial', sans-serif;
+            padding: 20px;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Floating hearts background */
+        .heart-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .heart-bg span {
+            position: absolute;
+            color: rgba(255, 255, 255, 0.3);
+            font-size: 20px;
+            animation: float 6s linear infinite;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            50% {
+                opacity: 0.8;
+            }
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 3rem;
+            border-radius: 30px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            max-width: 600px;
+            width: 100%;
+            position: relative;
+            z-index: 2;
+            backdrop-filter: blur(10px);
+            border: 3px solid white;
+            animation: cardAppear 1s ease-out;
+        }
+
+        @keyframes cardAppear {
+            0% {
+                transform: scale(0.8);
+                opacity: 0;
+            }
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        h1 {
+            color: #ff1493;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(255, 20, 147, 0.2);
+        }
+
+        .heart {
+            font-size: 4rem;
+            margin: 1rem 0;
+            animation: heartbeat 1.2s ease-in-out infinite;
+        }
+
+        @keyframes heartbeat {
+            0% { transform: scale(1); }
+            14% { transform: scale(1.3); }
+            28% { transform: scale(1); }
+            42% { transform: scale(1.3); }
+            70% { transform: scale(1); }
+        }
+
+        .message {
+            font-size: 1.3rem;
+            color: #666;
+            line-height: 1.8;
+            margin: 2rem 0;
+            padding: 0 1rem;
+        }
+
+        .message p {
+            margin: 1rem 0;
+        }
+
+        .special-message {
+            background: linear-gradient(135deg, #fff0f5, #ffe4e1);
+            padding: 1.5rem;
+            border-radius: 20px;
+            margin: 1.5rem 0;
+            border: 2px dashed #ff69b4;
+        }
+
+        .special-message p {
+            color: #d43f8d;
+            font-style: italic;
+            font-size: 1.2rem;
+            margin: 0;
+        }
+
+        .valentine-question {
+            background: #ff1493;
+            color: white;
+            padding: 1rem;
+            border-radius: 50px;
+            font-size: 1.4rem;
+            margin: 1.5rem 0;
+            font-weight: bold;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 15px 40px;
+            font-size: 1.3rem;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: bold;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-yes {
+            background: #ff1493;
+            color: white;
+            box-shadow: 0 5px 15px rgba(255, 20, 147, 0.4);
+        }
+
+        .btn-yes:hover {
+            transform: scale(1.1);
+            background: #ff69b4;
+            box-shadow: 0 8px 20px rgba(255, 20, 147, 0.6);
+        }
+
+        .btn-maybe {
+            background: #f0f0f0;
+            color: #666;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+
+        .btn-maybe:hover {
+            background: #e0e0e0;
+            transform: scale(0.95);
+        }
+
+        .final-surprise {
+            margin-top: 2rem;
+            font-size: 1.2rem;
+            color: #ff1493;
+            display: none;
+            animation: fadeIn 1s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .final-surprise.show {
+            display: block;
+        }
+
+        .secret-note {
+            color: #888;
+            font-size: 1rem;
+            margin-top: 1rem;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .secret-note:hover {
+            color: #ff1493;
+        }
+
+        .hidden-message {
+            display: none;
+            background: #fff0f5;
+            padding: 1rem;
+            border-radius: 10px;
+            margin-top: 0.5rem;
+            font-size: 1rem;
+            color: #ff1493;
+        }
+
+        .hidden-message.show {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+
+        @media (max-width: 480px) {
+            .card {
+                padding: 2rem;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .message {
+                font-size: 1.1rem;
+            }
+            
+            .btn {
+                padding: 12px 30px;
+                font-size: 1.1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Floating hearts background -->
+    <div class="heart-bg" id="heartBg"></div>
+
+    <!-- Main card -->
+    <div class="card">
+      <h1>Happy Valentine's Day, [Brian]! 💕</h1>
+        
+        <div class="heart">❤️</div>
+        
+        <div class="message">
+            <p>Uh oh sounds like this is a little surprise...</p>
+            <p>✨ For You! ✨</p>
+        </div>
+        
+        <div class="special-message">
+            <p>Every day with you feels like Valentine's Day,</p>
+            <p>but today we get to celebrate it extra special! 🌹</p>
+        </div>
+        
+        <div class="valentine-question">
+            Will you be my Valentine? 💝
+        </div>
+        
+        <div class="buttons">
+            <button class="btn btn-yes" onclick="showSurprise()">YES! 💖</button>
+            <button class="btn btn-maybe" onclick="askAgain()">Maybe... 🤔</button>
+        </div>
+        
+        <div class="final-surprise" id="surprise">
+            <p>🎉 Yay! I knew you'd say yes! 🎉</p>
+            <p>You've made this the best Valentine's Day ever!</p>
+            <p>💑 Here's to us and many more Valentine's Days together! 💑</p>
+            <div class="heart" style="font-size: 3rem;">💕</div>
+            
+            <!-- Secret note that can be clicked -->
+            <div class="secret-note" onclick="revealSecret()">
+                💌 Pssst... click here for a secret message 💌
+            </div>
+            <div class="hidden-message" id="secretMessage">
+                You are the most amazing person in my life. 
+                Thank you for being you! 
+                💖 Love you always! 💖
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Create floating hearts in background
+        function createHearts() {
+            const bg = document.getElementById('heartBg');
+            for (let i = 0; i < 20; i++) {
+                const heart = document.createElement('span');
+                heart.innerHTML = ['❤️', '💖', '💗', '💓', '💕'][Math.floor(Math.random() * 5)];
+                heart.style.left = Math.random() * 100 + '%';
+                heart.style.animationDelay = Math.random() * 5 + 's';
+                heart.style.fontSize = (Math.random() * 20 + 10) + 'px';
+                bg.appendChild(heart);
+            }
+        }
+
+        function showSurprise() {
+            document.getElementById('surprise').classList.add('show');
+            // Add some extra hearts when they click yes
+            for (let i = 0; i < 10; i++) {
+                setTimeout(() => {
+                    const heart = document.createElement('div');
+                    heart.innerHTML = '❤️';
+                    heart.style.position = 'fixed';
+                    heart.style.left = Math.random() * 100 + '%';
+                    heart.style.top = Math.random() * 100 + '%';
+                    heart.style.fontSize = '30px';
+                    heart.style.zIndex = '999';
+                    heart.style.pointerEvents = 'none';
+                    heart.style.animation = 'float 2s ease-out forwards';
+                    document.body.appendChild(heart);
+                    
+                    setTimeout(() => heart.remove(), 2000);
+                }, i * 100);
+            }
+        }
+
+        function askAgain() {
+            const messages = [
+                "Are you sure? 🥺",
+                "Pretty please? 💕",
+                "I'll ask again... 💘",
+                "Last chance to say YES! 💝",
+                "You know you want to! 💖"
+            ];
+            const randomMsg = messages[Math.floor(Math.random() * messages.length)];
+            alert(randomMsg);
+        }
+
+        function revealSecret() {
+            document.getElementById('secretMessage').classList.toggle('show');
+        }
+
+        // Initialize hearts when page loads
+        window.onload = createHearts;
+
+        // Add more hearts periodically
+        setInterval(() => {
+            const heart = document.createElement('span');
+            heart.innerHTML = '❤️';
+            heart.style.position = 'fixed';
+            heart.style.left = Math.random() * 100 + '%';
+            heart.style.top = '100%';
+            heart.style.fontSize = (Math.random() * 20 + 10) + 'px';
+            heart.style.zIndex = '1';
+            heart.style.pointerEvents = 'none';
+            heart.style.animation = 'float 6s linear forwards';
+            heart.style.color = 'rgba(255, 255, 255, 0.6)';
+            document.querySelector('.heart-bg').appendChild(heart);
+            
+            setTimeout(() => heart.remove(), 6000);
+        }, 500);
+    </script>
+</body>
+</html>
