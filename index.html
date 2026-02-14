@@ -214,7 +214,7 @@
             box-shadow: 0 8px 20px rgba(255, 0, 0, 0.6);
         }
 
-        /* YES page with photo background */
+        /* YES page with GIF background */
         body.yes-page {
             min-height: 100vh;
             margin: 0;
@@ -223,13 +223,13 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            background-image: url('_MG_9395.JPG');
+            background-image: url('giphy.gif');
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
         }
 
-        /* Light overlay for photo */
+        /* Light overlay for better text readability */
         body.yes-page::before {
             content: '';
             position: fixed;
@@ -237,76 +237,41 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(255, 255, 255, 0.2);
+            background-color: rgba(0, 0, 0, 0.2);
             z-index: 1;
             pointer-events: none;
         }
 
-        /* Flower animations container */
-        .flower-container {
+        /* Transition GIF container */
+        .transition-gif {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
+            background-image: url('ezgif-67ed1841b5f8ff6d.gif');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            z-index: 100;
             pointer-events: none;
-            z-index: 2;
-            overflow: hidden;
+            animation: fadeOut 2s ease-in-out forwards;
         }
 
-        .flower {
-            position: absolute;
-            color: transparent;
-            font-size: 40px;
-            text-shadow: 0 0 0 #ffb6c1;
-            animation: flowerFloat 8s linear infinite;
-            z-index: 2;
-        }
-
-        .flower::before {
-            content: '🌸';
-            color: #ff69b4;
-            opacity: 0.6;
-        }
-
-        .flower2::before {
-            content: '🌼';
-            color: #ffd700;
-        }
-
-        .flower3::before {
-            content: '🌺';
-            color: #ff6b6b;
-        }
-
-        .flower4::before {
-            content: '🌷';
-            color: #ff99cc;
-        }
-
-        .flower5::before {
-            content: '🌹';
-            color: #ff1493;
-        }
-
-        @keyframes flowerFloat {
+        @keyframes fadeOut {
             0% {
-                transform: translateY(100vh) rotate(0deg) scale(0.5);
-                opacity: 0;
+                opacity: 1;
             }
-            10% {
-                opacity: 0.8;
-            }
-            90% {
-                opacity: 0.8;
+            70% {
+                opacity: 1;
             }
             100% {
-                transform: translateY(-100px) rotate(360deg) scale(1.2);
                 opacity: 0;
+                visibility: hidden;
             }
         }
 
-        /* YES content container - transparent background */
+        /* YES content container */
         .yes-content {
             position: relative;
             z-index: 10;
@@ -318,11 +283,22 @@
             align-items: center;
             justify-content: center;
             gap: 20px;
+            opacity: 0;
+            animation: contentFadeIn 1s ease-in-out 1.5s forwards;
         }
 
-        /* Top message - smaller but still big */
+        @keyframes contentFadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* Top message */
         .big-message {
-            font-size: 2.8rem; /* Reduced from 4rem */
+            font-size: 2.8rem;
             font-weight: bold;
             color: #ff1493;
             text-shadow: 
@@ -353,13 +329,13 @@
             }
         }
 
-        /* Middle image */
+        /* Middle image - NO FRAME */
         .middle-image {
             width: 300px;
             height: auto;
-            border-radius: 30px;
-            box-shadow: 0 20px 40px rgba(255, 20, 147, 0.3);
-            border: 5px solid white;
+            border-radius: 0;
+            box-shadow: none;
+            border: none;
             animation: imageAppear 1s ease-out 0.3s both;
             margin: 10px 0;
         }
@@ -375,7 +351,7 @@
             }
         }
 
-        /* Bottom message - single line, not buttons */
+        /* Bottom message */
         .bottom-message {
             font-size: 1.6rem;
             color: #ff1493;
@@ -402,54 +378,6 @@
             to {
                 transform: translateY(0);
                 opacity: 1;
-            }
-        }
-
-        /* Transition hearts container */
-        .transition-hearts {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 100;
-            overflow: hidden;
-        }
-
-        .transition-heart {
-            position: absolute;
-            color: #ff1493;
-            font-size: 120px;
-            opacity: 1;
-            text-shadow: 0 0 30px rgba(255, 255, 255, 0.8);
-            z-index: 101;
-            filter: drop-shadow(0 0 10px rgba(255, 20, 147, 0.5));
-            animation: none;
-            transform: scale(1);
-            font-family: Arial, sans-serif;
-        }
-
-        /* Burst animation for final hearts */
-        .burst-heart {
-            position: absolute;
-            color: #ff1493;
-            font-size: 150px;
-            animation: heartBurst 0.8s ease-out forwards;
-            text-shadow: 0 0 40px rgba(255, 255, 255, 0.9);
-            z-index: 102;
-            pointer-events: none;
-            filter: drop-shadow(0 0 15px rgba(255, 20, 147, 0.6));
-        }
-
-        @keyframes heartBurst {
-            0% {
-                transform: scale(1) translate(0, 0) rotate(0deg);
-                opacity: 1;
-            }
-            100% {
-                transform: scale(8) translate(0, -100px) rotate(20deg);
-                opacity: 0;
             }
         }
 
@@ -621,14 +549,6 @@
                 font-size: 3rem;
             }
             
-            .transition-heart {
-                font-size: 60px;
-            }
-            
-            .burst-heart {
-                font-size: 80px;
-            }
-            
             .big-message {
                 font-size: 1.6rem;
                 padding: 10px 15px;
@@ -652,11 +572,8 @@
         <div class="go-back-link" onclick="goBack()">you better go back</div>
     </div>
 
-    <!-- Transition hearts container (initially hidden) -->
-    <div class="transition-hearts hidden" id="transitionHearts"></div>
-
-    <!-- Flower container (initially hidden) -->
-    <div class="flower-container hidden" id="flowerContainer"></div>
+    <!-- Transition GIF container (initially hidden) -->
+    <div class="transition-gif hidden" id="transitionGif"></div>
 
     <!-- YES page content (initially hidden) -->
     <div class="yes-content hidden" id="yesContent">
@@ -688,7 +605,7 @@
         </div>
         
         <div class="buttons">
-            <button class="btn btn-yes" onclick="startHeartTransition()">YES! 💖</button>
+            <button class="btn btn-yes" onclick="startGifTransition()">YES! 💖</button>
             <button class="btn btn-maybe" id="maybeButton" onmouseenter="runAway()">Maybe... 🤔</button>
             <button class="btn btn-no" onclick="showDarkPage()">NO 💔</button>
         </div>
@@ -728,123 +645,38 @@
         }
     }
 
-    // Create floating flowers
-    function createFlowers() {
-        const container = document.getElementById('flowerContainer');
-        container.innerHTML = '';
-        
-        const flowerTypes = ['flower', 'flower2', 'flower3', 'flower4', 'flower5'];
-        
-        for (let i = 0; i < 30; i++) {
-            const flower = document.createElement('div');
-            flower.className = 'flower ' + flowerTypes[Math.floor(Math.random() * flowerTypes.length)];
-            
-            flower.style.left = Math.random() * 100 + '%';
-            flower.style.animationDelay = Math.random() * 5 + 's';
-            flower.style.animationDuration = (Math.random() * 5 + 5) + 's';
-            flower.style.fontSize = (Math.random() * 30 + 30) + 'px';
-            
-            container.appendChild(flower);
-        }
-    }
-
-    // Start heart transition when YES is clicked
-    function startHeartTransition() {
+    // Start GIF transition when YES is clicked
+    function startGifTransition() {
         const body = document.getElementById('mainBody');
         const mainCard = document.getElementById('mainCard');
-        const transitionHearts = document.getElementById('transitionHearts');
+        const transitionGif = document.getElementById('transitionGif');
         
         // Hide main card
         mainCard.classList.add('hidden');
         
-        // Show transition hearts container
-        transitionHearts.classList.remove('hidden');
+        // Show transition GIF
+        transitionGif.classList.remove('hidden');
         
-        // Create hearts one by one
-        createHeartsOneByOne();
-    }
-
-    // Create hearts one by one - they STAY on screen
-    function createHeartsOneByOne() {
-        const transitionHearts = document.getElementById('transitionHearts');
-        const totalHearts = 40;
-        let heartsCreated = 0;
-        
-        function createNextHeart() {
-            if (heartsCreated < totalHearts) {
-                const heart = document.createElement('div');
-                heart.className = 'transition-heart';
-                
-                heart.innerHTML = '❤️';
-                
-                heart.style.left = Math.random() * 100 + '%';
-                heart.style.top = Math.random() * 100 + '%';
-                
-                const size = Math.random() * 170 + 80;
-                heart.style.fontSize = size + 'px';
-                
-                heart.style.transform = `rotate(${Math.random() * 30 - 15}deg)`;
-                
-                transitionHearts.appendChild(heart);
-                
-                heartsCreated++;
-                
-                setTimeout(createNextHeart, 30);
-            } else {
-                setTimeout(createBurstEffect, 800);
-            }
-        }
-        
-        createNextHeart();
-    }
-
-    // Create burst effect - ALL hearts burst at the same time
-    function createBurstEffect() {
-        const transitionHearts = document.getElementById('transitionHearts');
-        
-        transitionHearts.innerHTML = '';
-        
-        for (let i = 0; i < 50; i++) {
-            const burstHeart = document.createElement('div');
-            burstHeart.className = 'burst-heart';
-            
-            burstHeart.innerHTML = '❤️';
-            
-            burstHeart.style.left = Math.random() * 100 + '%';
-            burstHeart.style.top = Math.random() * 100 + '%';
-            
-            const size = Math.random() * 200 + 100;
-            burstHeart.style.fontSize = size + 'px';
-            
-            const delay = Math.random() * 0.1;
-            burstHeart.style.animationDelay = delay + 's';
-            
-            transitionHearts.appendChild(burstHeart);
-        }
-        
+        // After GIF animation completes, show YES page
         setTimeout(() => {
             showYesPage();
-        }, 800);
+        }, 2000); // Matches the animation duration
     }
 
     // Show YES page
     function showYesPage() {
         const body = document.getElementById('mainBody');
-        const transitionHearts = document.getElementById('transitionHearts');
-        const flowerContainer = document.getElementById('flowerContainer');
+        const transitionGif = document.getElementById('transitionGif');
         const yesContent = document.getElementById('yesContent');
         
         body.className = '';
         body.classList.add('yes-page');
         
-        transitionHearts.classList.add('hidden');
-        transitionHearts.innerHTML = '';
+        // Hide transition GIF
+        transitionGif.classList.add('hidden');
         
-        flowerContainer.classList.remove('hidden');
+        // Show YES content
         yesContent.classList.remove('hidden');
-        
-        // Create floating flowers
-        createFlowers();
         
         // Hide dark page elements
         document.getElementById('darkContent').classList.add('hidden');
@@ -852,7 +684,7 @@
         document.getElementById('realFire').classList.add('hidden');
         document.getElementById('realFireSecondary').classList.add('hidden');
         
-        // Ensure image loads properly (add error handling)
+        // Ensure image loads properly
         const img = document.getElementById('specialImage');
         img.onerror = function() {
             console.log('Image not found, but continuing...');
@@ -868,17 +700,14 @@
         const elmoFire = document.getElementById('elmoFire');
         const realFire = document.getElementById('realFire');
         const realFireSecondary = document.getElementById('realFireSecondary');
-        const transitionHearts = document.getElementById('transitionHearts');
-        const flowerContainer = document.getElementById('flowerContainer');
+        const transitionGif = document.getElementById('transitionGif');
         const yesContent = document.getElementById('yesContent');
         
         body.className = '';
         body.classList.add('dark-page');
         
         mainCard.classList.add('hidden');
-        transitionHearts.classList.add('hidden');
-        transitionHearts.innerHTML = '';
-        flowerContainer.classList.add('hidden');
+        transitionGif.classList.add('hidden');
         yesContent.classList.add('hidden');
         
         darkContent.classList.remove('hidden');
@@ -895,8 +724,7 @@
         const elmoFire = document.getElementById('elmoFire');
         const realFire = document.getElementById('realFire');
         const realFireSecondary = document.getElementById('realFireSecondary');
-        const transitionHearts = document.getElementById('transitionHearts');
-        const flowerContainer = document.getElementById('flowerContainer');
+        const transitionGif = document.getElementById('transitionGif');
         const yesContent = document.getElementById('yesContent');
         
         body.className = '';
@@ -908,9 +736,7 @@
         elmoFire.classList.add('hidden');
         realFire.classList.add('hidden');
         realFireSecondary.classList.add('hidden');
-        transitionHearts.classList.add('hidden');
-        transitionHearts.innerHTML = '';
-        flowerContainer.classList.add('hidden');
+        transitionGif.classList.add('hidden');
         yesContent.classList.add('hidden');
     }
 
