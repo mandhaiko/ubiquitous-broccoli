@@ -45,7 +45,7 @@
             pointer-events: none;
         }
 
-        /* Paper collage box - main card - Light is blue */
+        /* Paper collage box - main card - Light blue */
         .card {
             background: #add8e6;
             padding: 3rem;
@@ -194,6 +194,135 @@
             background: #ff0000;
             transform: scale(1.1);
             box-shadow: 0 8px 20px rgba(255, 0, 0, 0.6);
+        }
+
+        /* Dark page with Elmo and fire at bottom */
+        body.dark-page {
+            background: #000000;
+            min-height: 100vh;
+            margin: 0;
+            padding: 0;
+            position: relative;
+        }
+
+        /* Elmo GIF positioned at bottom - FULLY VISIBLE */
+        .elmo-fire-bottom {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('burn-elmo.gif');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        /* Real fire GIF at bottom */
+        .real-fire-bottom {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 200px;
+            background-image: url('https://media1.tenor.com/m/-D48F6wO2xUAAAAC/fire-burning.gif');
+            background-size: cover;
+            background-position: center bottom;
+            background-repeat: no-repeat;
+            z-index: 2;
+            pointer-events: none;
+            opacity: 0.8;
+            mix-blend-mode: screen;
+        }
+
+        /* Second fire for more intensity */
+        .real-fire-bottom-secondary {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 250px;
+            background-image: url('https://media1.tenor.com/m/G0xVeI4qU6AAAAAC/flames-fire.gif');
+            background-size: cover;
+            background-position: center bottom;
+            background-repeat: no-repeat;
+            z-index: 3;
+            pointer-events: none;
+            opacity: 0.6;
+            mix-blend-mode: screen;
+        }
+
+        /* Dark overlay removed - fully transparent behind text */
+        body.dark-page::before {
+            display: none;
+        }
+
+        /* Dark content styling - FULLY TRANSPARENT except button */
+        .dark-content {
+            position: relative;
+            z-index: 5;
+            text-align: center;
+            background: transparent;
+            padding: 2rem;
+            border-radius: 20px;
+            border: 2px solid #ff6b00;
+            box-shadow: 0 0 50px rgba(255, 107, 0, 0.5);
+            margin-top: -150px;
+            max-width: 800px;
+            width: 90%;
+            backdrop-filter: none;
+        }
+
+        .how-dare-you {
+            color: transparent;
+            font-size: 5rem;
+            font-weight: bold;
+            text-align: center;
+            text-transform: uppercase;
+            animation: shake 0.5s ease-in-out infinite;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, #ff6b00, #ffd700, #ff4400, #ffaa00);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-stroke: 2px rgba(255, 107, 0, 0.5);
+            text-shadow: 0 0 20px rgba(255, 100, 0, 0.7);
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            25% { transform: translate(-5px, 5px) rotate(-2deg); }
+            50% { transform: translate(5px, -5px) rotate(2deg); }
+            75% { transform: translate(-3px, -3px) rotate(-1deg); }
+        }
+
+        .go-back-link {
+            color: #ffaa00;
+            font-size: 1.5rem;
+            text-decoration: none;
+            margin-top: 1rem;
+            display: inline-block;
+            padding: 1rem 2rem;
+            border: 2px solid #ff6b00;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            background: rgba(0, 0, 0, 0.6);
+            animation: pulse 2s ease-in-out infinite;
+            font-weight: bold;
+        }
+
+        .go-back-link:hover {
+            background: #ff6b00;
+            color: black;
+            transform: scale(1.1);
+            box-shadow: 0 0 30px #ff6b00;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
         }
 
         /* YES page with GIF background */
@@ -562,6 +691,10 @@
             .game-over-message {
                 font-size: 1.6rem;
             }
+            
+            .how-dare-you {
+                font-size: 3rem;
+            }
         }
     </style>
 </head>
@@ -728,6 +861,11 @@
         document.getElementById('transitionGif').classList.add('hidden');
         document.getElementById('yesContent').classList.add('hidden');
         
+        // Stop any existing game interval
+        if (gameInterval) {
+            clearInterval(gameInterval);
+        }
+        
         // Start game
         gameActive = true;
         gameInterval = setInterval(updateGame, 20);
@@ -817,7 +955,7 @@
             gameActive = false;
             clearInterval(gameInterval);
             document.getElementById('gameInstructions').classList.add('hidden');
-            document.getElementById('gameOverMessage').textContent = '😢 YOU LOSE 😢';
+            document.getElementById('gameOverMessage').textContent = '😢 YOU LOSE... 😢';
             document.getElementById('gameSubMessage').textContent = 'Love never gives up! Try again!';
             document.getElementById('gameOverMessage').classList.remove('hidden');
             document.getElementById('gameSubMessage').classList.remove('hidden');
@@ -868,6 +1006,13 @@
         mainCard.classList.add('hidden');
         transitionGif.classList.remove('hidden');
         
+        // Hide other elements
+        document.getElementById('darkContent').classList.add('hidden');
+        document.getElementById('elmoFire').classList.add('hidden');
+        document.getElementById('realFire').classList.add('hidden');
+        document.getElementById('realFireSecondary').classList.add('hidden');
+        document.getElementById('gameContainer').classList.add('hidden');
+        
         setTimeout(() => {
             showYesPage();
         }, 1200);
@@ -884,11 +1029,6 @@
         
         transitionGif.classList.add('hidden');
         yesContent.classList.remove('hidden');
-        
-        document.getElementById('darkContent').classList.add('hidden');
-        document.getElementById('elmoFire').classList.add('hidden');
-        document.getElementById('realFire').classList.add('hidden');
-        document.getElementById('realFireSecondary').classList.add('hidden');
         
         const img = document.getElementById('specialImage');
         img.onerror = function() {
@@ -909,25 +1049,30 @@
         const yesContent = document.getElementById('yesContent');
         const gameContainer = document.getElementById('gameContainer');
         
+        // Reset body classes and add dark-page
         body.className = '';
         body.classList.add('dark-page');
         
+        // Hide all other content
         mainCard.classList.add('hidden');
         transitionGif.classList.add('hidden');
         yesContent.classList.add('hidden');
         gameContainer.classList.add('hidden');
         
+        // Show dark page elements
         darkContent.classList.remove('hidden');
         elmoFire.classList.remove('hidden');
         realFire.classList.remove('hidden');
         realFireSecondary.classList.remove('hidden');
         
+        // Clear game interval if running
         if (gameInterval) {
             clearInterval(gameInterval);
+            gameActive = false;
         }
     }
 
-    // Go back to main page
+    // Go back to main page from dark page
     function goBack() {
         const body = document.getElementById('mainBody');
         const mainCard = document.getElementById('mainCard');
@@ -935,9 +1080,6 @@
         const elmoFire = document.getElementById('elmoFire');
         const realFire = document.getElementById('realFire');
         const realFireSecondary = document.getElementById('realFireSecondary');
-        const transitionGif = document.getElementById('transitionGif');
-        const yesContent = document.getElementById('yesContent');
-        const gameContainer = document.getElementById('gameContainer');
         
         body.className = '';
         body.classList.add('main-page');
@@ -948,18 +1090,18 @@
         elmoFire.classList.add('hidden');
         realFire.classList.add('hidden');
         realFireSecondary.classList.add('hidden');
-        transitionGif.classList.add('hidden');
-        yesContent.classList.add('hidden');
-        gameContainer.classList.add('hidden');
-        
-        if (gameInterval) {
-            clearInterval(gameInterval);
-        }
     }
 
     // Initialize
     window.onload = function() {
-        // No initial movement
+        // Make sure all non-main pages are hidden
+        document.getElementById('darkContent').classList.add('hidden');
+        document.getElementById('elmoFire').classList.add('hidden');
+        document.getElementById('realFire').classList.add('hidden');
+        document.getElementById('realFireSecondary').classList.add('hidden');
+        document.getElementById('transitionGif').classList.add('hidden');
+        document.getElementById('yesContent').classList.add('hidden');
+        document.getElementById('gameContainer').classList.add('hidden');
     };
 </script>
 </body>
